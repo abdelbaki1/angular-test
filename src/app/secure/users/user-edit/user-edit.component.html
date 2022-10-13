@@ -15,6 +15,7 @@
   <div class="mb-3">
     <label>Role</label>
     <select name="role_id" class="form-control" formControlName="role_id">
+      
       <option *ngFor="let role of roles" [ngValue]="role.id">
         {{role.name}}
       </option>
