@@ -27,7 +27,8 @@ export class UserCreateComponent implements OnInit {
       first_name: '',
       last_name: '',
       email: '',
-      role_id: ''
+      role_id: '',
+      password:''
     });
 
     this.roleService.all().subscribe(
@@ -38,6 +39,8 @@ export class UserCreateComponent implements OnInit {
   }
 
   submit(): void {
+    console.log(this.form.getRawValue());
+    
     this.userService.create(this.form.getRawValue()).subscribe(
       () => this.router.navigate(['/users'])
     );
