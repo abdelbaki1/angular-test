@@ -2,21 +2,35 @@
   <div class="mb-3">
     <label>Title</label>
     <input formControlName="title" class="form-control" name="title">
+    <div *ngIf="!title?.valid && (title?.dirty || title?.touched )" class="alert alert-danger" role="alert">
+    This Field is required!!
+  </div>
   </div>
   <div class="mb-3">
     <label>Description</label>
-    <textarea formControlName="description" class="form-control" name="description"></textarea>
+    <textarea formControlName="description" class="form-control" name="description">
+      <div *ngIf="!description?.valid && (description?.dirty || description?.touched )" class="alert alert-danger" role="alert">
+    This Field is required!!
+  </div>
+    </textarea>
   </div>
   <div class="mb-3">
     <label>Image</label>
     <div class="input-group">
       <input formControlName="image" class="form-control" name="image">
-      <app-upload (uploaded)="form.patchValue({'image': $event})"></app-upload>
+      <!-- <div *ngIf="!password?.valid && (password?.dirty || password?.touched )" class="alert alert-danger" role="alert">
+    This Field is required!!
+  </div> -->
+      <app-upload [url]="url_image" (uploaded)="form.patchValue({'image': $event})"></app-upload>
     </div>
   </div>
   <div class="mb-3">
     <label>Price</label>
     <input formControlName="price" type="number" class="form-control" name="price">
+    <div *ngIf="!price?.valid && (price?.dirty || price?.touched )" class="alert alert-danger" role="alert">
+    This Field is required!!
   </div>
-  <button class="btn btn-outline-secondary">Save</button>
+  </div>
+  <button class="btn btn-outline-secondary">Exit</button>
+  <button [disabled]="!form.valid" class="btn btn-outline-secondary">Save</button>
 </form>

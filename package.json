@@ -19,11 +19,13 @@
     "@angular/platform-browser": "~10.1.2",
     "@angular/platform-browser-dynamic": "~10.1.2",
     "@angular/router": "~10.1.2",
+    "@fortawesome/angular-fontawesome": "^0.11.1",
     "@types/file-saver": "^2.0.5",
     "c3": "^0.7.20",
     "c3-angular": "^1.4.0",
     "file-saver": "^2.0.5",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.6.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

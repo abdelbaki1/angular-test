@@ -20,6 +20,7 @@ import { UploadComponent } from './components/upload/upload.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { OrdersComponent } from './orders/orders.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { BrowserModule } from '@angular/platform-browser';
     ProductCreateComponent,
     UploadComponent,
     ProductEditComponent,
-    OrdersComponent
+    OrdersComponent,
+    HomepageComponent
   ],
   exports: [
     SecureComponent

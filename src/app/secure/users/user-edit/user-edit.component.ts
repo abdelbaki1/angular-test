@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Role} from '../../../interfaces/role';
 import {RoleService} from '../../../services/role.service';
 import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import Swal from 'sweetalert2';
+import { Alerts } from 'src/app/classes/Alerts';
 
 @Component({
   selector: 'app-user-edit',
@@ -23,6 +25,10 @@ export class UserEditComponent implements OnInit {
     private route: ActivatedRoute
   ) {
   }
+  // ngOnDestroy(): void {
+  //   Swal.fire('Changes are not saved', '<a>hi</a>', 'info')!
+    
+  // }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -56,9 +62,18 @@ export class UserEditComponent implements OnInit {
 
   submit(): void {
     console.log(this.form.getRawValue());
-    
-    this.userService.update(this.id, this.form.getRawValue())
-      .subscribe(() => this.router.navigate(['/users']));
+    this.userService.update(this.id,this.form.getRawValue())
+                    .then(
+                      (obs)=>{if(!obs)this.router.navigate(['/users']);
+                      else{
+                        Swal.fire('user edited successfully','','success');
+                      obs.subscribe(
+                        
+                        ()=>this.router.navigate(['/users']))
+                      }
+                    }
+                        )
+
   }
 
 }

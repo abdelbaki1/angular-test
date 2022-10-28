@@ -7,8 +7,18 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
+      <th>
+        <div #name class='top_end' style="cursor: pointer;" (click)="sortorders('name',name)">
+        <a href="javascript:void(0)" >Name</a>
+        <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
+      </div>
+    </th>
+      <th>
+        <div #email class='top_end' style="cursor: pointer;" (click)="sortorders('email',email)">
+          <a href="javascript:void(0)" >Email</a>
+          <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </th>
       <th>Total</th>
       <th>Action</th>
     </tr>
@@ -16,10 +26,10 @@
     <tbody>
     <ng-container *ngFor="let order of orders">
       <tr>
-        <td>{{order.id}}</td>
-        <td>{{order.name}}</td>
-        <td>{{order.email}}</td>
-        <td>{{order.total}}</td>
+        <td id="id">{{order.id}}</td>
+        <td > {{order.name}}</td>
+        <td  id="email">{{order.email}}</td>
+        <td id="total">{{order.total}}</td>
         <td>
           <div class="btn-group mr-2">
             <a class="btn btn-sm btn-outline-secondary" (click)="select(order.id)">View</a>

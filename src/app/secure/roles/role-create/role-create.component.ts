@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Permission} from '../../../interfaces/permission';
 import {PermissionService} from '../../../services/permission.service';
 import {RoleService} from '../../../services/role.service';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role-create',
@@ -24,7 +25,7 @@ export class RoleCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      name: '',
+      name: ['',[Validators.required]],
       permissions: this.formBuilder.array([])
     });
 
@@ -41,11 +42,15 @@ export class RoleCreateComponent implements OnInit {
         });
       }
     );
+    console.log(this.permissionArray,this.permissions);
+    
   }
 
   get permissionArray(): FormArray {
     return this.form.get('permissions') as FormArray;
   }
+  get name ()
+  {return this.form.get('name')}
 
   submit(): void {
     const formData = this.form.getRawValue();
@@ -55,8 +60,18 @@ export class RoleCreateComponent implements OnInit {
       permissions: formData.permissions.filter(p => p.value === true).map(p => p.id)
     };
 
-    this.roleService.create(data)
-      .subscribe(() => this.router.navigate(['/roles']));
+    this.roleService.create(data).then(
+      (result_obs)=>
+      {if(result_obs){
+        result_obs.subscribe(
+          () => this.router.navigate(['/roles']))
+        }
+        else{
+          Swal.fire('there was an error while creating role object')
+          this.router.navigate(['/roles'])
+        };
   }
-
+    )
+}
+  
 }

@@ -16,13 +16,16 @@ import {ProductsComponent} from './secure/products/products.component';
 import {ProductCreateComponent} from './secure/products/product-create/product-create.component';
 import {ProductEditComponent} from './secure/products/product-edit/product-edit.component';
 import {OrdersComponent} from './secure/orders/orders.component';
+import { Page404Component } from './public/page404/page404.component';
+import { HomepageComponent } from './secure/homepage/homepage.component';
 
 const routes: Routes = [
   {
     path: '',
     component: SecureComponent,
     children: [
-      {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+      {path: '', redirectTo: '/home', pathMatch: 'full'},
+      {path:'home',component:HomepageComponent},
       {path: 'dashboard', component: DashboardComponent},
       {path: 'profile', component: ProfileComponent},
       {path: 'users', component: UsersComponent},
@@ -35,6 +38,7 @@ const routes: Routes = [
       {path: 'products/create', component: ProductCreateComponent},
       {path: 'products/:id/edit', component: ProductEditComponent},
       {path: 'orders', component: OrdersComponent},
+      // 
     ]
   },
   {
@@ -45,6 +49,7 @@ const routes: Routes = [
       {path: 'register', component: RegisterComponent},
     ]
   },
+  {path:'**',component:Page404Component}
 ];
 
 @NgModule({

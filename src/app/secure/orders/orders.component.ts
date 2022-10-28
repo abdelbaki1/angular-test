@@ -26,7 +26,8 @@ export class OrdersComponent implements OnInit {
   lastPage: number;
   selected: number;
   show = false;
-
+  IsSorted: Boolean=false;
+  IsFirstSorted:Boolean=false;
   constructor(private orderService: OrderService) {
   }
 
@@ -40,6 +41,7 @@ export class OrdersComponent implements OnInit {
         // console.log(res);
         
         this.orders = res.data;
+        
         this.lastPage = res.meta.total_pages;
         // console.log(this.lastPage);
         
@@ -83,8 +85,25 @@ export class OrdersComponent implements OnInit {
         
     );
   }
+  sortorders(c:string,col:HTMLElement){
+    console.log("sorting");
+    if(!this.IsSorted){
+      this.orders=<Order[]>this.orderService.sortArray(this.orders,c)
+      console.log(this.orders);
+      col.lastElementChild.classList.replace('fa-arrow-up','fa-arrow-down')
+      console.log(col.lastElementChild.classList);
+      this.IsFirstSorted=true;
+      this.IsSorted=true;
+      }
+      else{
+        this.orders=<Order[]>this.orderService.reverseArray(this.orders,c)
+        col.lastElementChild.classList.replace('fa-arrow-down','fa-arrow-up')
+        this.IsSorted=false
+        console.log(col.lastElementChild.classList);
+  
+    
+  }
 }
-function e(e: any): () => void {
-  throw new Error('Function not implemented.');
+  
 }
 

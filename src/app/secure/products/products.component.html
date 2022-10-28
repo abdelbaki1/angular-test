@@ -8,7 +8,12 @@
     <tr>
       <th>#</th>
       <th>Image</th>
-      <th>Title</th>
+      <th>
+        <div #title class='top_end' style="cursor: pointer;" (click)="sortproducts('title',title)">
+          <a href="javascript:void(0)" >Title</a>
+          <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </th>
       <th>Price</th>
       <th>Action</th>
     </tr>

@@ -3,7 +3,11 @@
     <label class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
       <input formControlName="name" class="form-control" name="name">
+      <div *ngIf="!name?.valid && (name?.dirty || name?.touched )" class="alert alert-danger" role="alert">
+        This Field is required!!
+      </div>
     </div>
+    
   </div>
 
   <div class="mb-3 row" formArrayName="permissions">
@@ -18,5 +22,7 @@
     </div>
   </div>
 
-  <button class="btn btn-outline-secondary">Save</button>
+
+  <button class="btn btn-outline-secondary">Exit</button>
+  <button [disabled]="!form.valid" class="btn btn-outline-secondary">Save</button>
 </form>

@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../services/product.service';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-create',
@@ -10,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ProductCreateComponent implements OnInit {
   form: FormGroup;
-
+  url_image:string=`${environment.api}/products/upload`
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,
@@ -20,15 +22,34 @@ export class ProductCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      title: '',
-      description: '',
+      title: ['',[Validators.required]],
+      description: ['',[Validators.required]],
       image: '',
-      price: ''
+      price: ['',[Validators.required]]
     });
   }
-
+   get title(){
+     return this.form.get('title');
+   }
+   get description(){
+    return this.form.get('description');
+  }
+  get price(){
+    return this.form.get('price');
+  }
   submit(): void {
     this.productService.create(this.form.getRawValue())
-      .subscribe(() => this.router.navigate(['/products']));
+    .then((result_obs)=>{
+      if(result_obs){
+        result_obs.subscribe(
+          () => this.router.navigate(['/products']))
+        }
+        else{
+          Swal.fire('there was an error while creating user object')
+          this.router.navigate(['/products']);
+          
+        }
+        }
+    ) 
   }
 }

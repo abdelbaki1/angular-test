@@ -2,13 +2,16 @@
 body {
   font-size: .875rem;
 }
-
+@import "~font-awesome/css/font-awesome.css";
 .feather {
   width: 16px;
   height: 16px;
   vertical-align: text-bottom;
 }
-
+.top_end{
+  display: flex;
+  justify-content:start;
+}
 /*
  * Sidebar
  */

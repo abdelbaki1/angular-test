@@ -5,6 +5,7 @@ import {PermissionService} from '../../../services/permission.service';
 import {RoleService} from '../../../services/role.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Role} from '../../../interfaces/role';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role-edit',
@@ -78,7 +79,18 @@ export class RoleEditComponent implements OnInit {
     };
 
     this.roleService.update(this.id, data)
-      .subscribe(() => this.router.navigate(['/roles']));
+                    .then(
+                      (result_obs)=>
+      {if(result_obs){
+        result_obs.subscribe(
+          () => this.router.navigate(['/roles']))
+        }
+        else{
+          Swal.fire('quite without saving')
+          this.router.navigate(['/roles'])
+        };
+  }
+                        )
   }
 
 }

@@ -18,5 +18,6 @@
     <label>Price</label>
     <input formControlName="price" type="number" class="form-control" name="price">
   </div>
-  <button class="btn btn-outline-secondary">Save</button>
+  <button class="btn btn-outline-secondary">Exit</button>
+  <button [disabled]="!form.valid" class="btn btn-outline-secondary">Save</button>
 </form>

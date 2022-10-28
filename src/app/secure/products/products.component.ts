@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import Swal from 'sweetalert2';
 import {Product} from '../../interfaces/product';
 import {ProductService} from '../../services/product.service';
 
@@ -10,9 +11,12 @@ import {ProductService} from '../../services/product.service';
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
   lastPage: number;
+  IsSorted: Boolean;
+  IsFirstSorted: boolean;
 
   constructor(private productService: ProductService) {
   }
+
 
   ngOnInit(): void {
     this.load();
@@ -25,14 +29,44 @@ export class ProductsComponent implements OnInit {
         
         this.products = res.data;
         this.lastPage = res.meta.last_page;
+        this.IsFirstSorted=false;
+
       }
     );
   }
 
   delete(id: number): void {
-    if (confirm('Are you sure you want to delete this record?')) {
-      this.productService.delete(id)
-        .subscribe(() => this.products = this.products.filter(p => p.id !== id));
-    }
+    this.productService.delete(id).then(
+      (result_observable)=>{
+        if(result_observable)
+        {result_observable.subscribe(
+          () =>{
+                this.products = this.products.filter(p => p.id !== id);
+                Swal.fire
+                (
+                  'Deleted!',
+                  'product has been deleted.',
+                  'success'
+                )
+              }
+        );}
+      })
   }
+  sortproducts(c:string,col:HTMLElement){
+    console.log("sorting");
+    if(!this.IsSorted){
+      this.products=<Product[]>this.productService.sortArray(this.products,c)
+      console.log(this.products);
+      col.lastElementChild.classList.replace('fa-arrow-up','fa-arrow-down')
+      console.log(col.lastElementChild.classList);
+      this.IsFirstSorted=true;
+      this.IsSorted=true;
+      }
+      else{
+        this.products=<Product[]>this.productService.reverseArray(this.products,c)
+        col.lastElementChild.classList.replace('fa-arrow-down','fa-arrow-up')
+        this.IsSorted=false
+        console.log(col.lastElementChild.classList);
+  }
+} 
 }

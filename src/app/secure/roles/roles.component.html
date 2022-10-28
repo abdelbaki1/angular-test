@@ -7,7 +7,12 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
+      <th>
+        <div #name class='top_end' style="cursor: pointer;" (click)="sortroles('name',name)">
+          <a href="javascript:void(0)" >Name</a>
+          <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </th>
       <th>Action</th>
     </tr>
     </thead>

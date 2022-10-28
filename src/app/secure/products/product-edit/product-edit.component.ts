@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -22,10 +22,10 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      title: '',
-      description: '',
+      title: ['',[Validators.required]],
+      description: ['',[Validators.required]],
       image: '',
-      price: ''
+      price: ['',[Validators.required]]
     });
 
     this.id = this.route.snapshot.params.id;
@@ -37,6 +37,15 @@ export class ProductEditComponent implements OnInit {
 
   submit(): void {
     this.productService.update(this.id, this.form.getRawValue())
-      .subscribe(() => this.router.navigate(['/products']));
+    .then(
+      (obs)=>{
+        if(!obs)this.router.navigate(['/products']);
+        else
+          {
+          obs.subscribe(
+            ()=>this.router.navigate(['/products']))
+          }
+        })
+        
   }
 }

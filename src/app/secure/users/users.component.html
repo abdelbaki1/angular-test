@@ -7,8 +7,17 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
+      <th><div #name class='top_end' style="cursor: pointer;" (click)="sortObject('first_name',name,1)">
+        <a href="javascript:void(0)" >Name</a>
+        <i  *ngIf="is_sort_column['first_name']" class="fa fa-arrow-down" aria-hidden="true"></i>
+        
+        </div></th>
+      <th>
+        <div #email class='top_end' style="cursor: pointer;" (click)="sortObject('email',email,2)">
+        <a href="javascript:void(0)" >Email</a>
+        <i *ngIf="is_sort_column['email']" class="fa fa-arrow-down" aria-hidden="true"></i>
+        </div>
+      </th>
       <th>Role</th>
       <th>Action</th>
     </tr>
