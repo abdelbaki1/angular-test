@@ -25,10 +25,10 @@ export class ProductsComponent implements OnInit {
   load(page = 1): void {
     this.productService.all(page).subscribe(
       res => {
-        // console.log(res);
+        console.log(res);
         
         this.products = res.data;
-        this.lastPage = res.meta.last_page;
+        this.lastPage = res.meta.total_pages;
         this.IsFirstSorted=false;
 
       }

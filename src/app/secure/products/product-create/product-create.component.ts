@@ -28,6 +28,9 @@ export class ProductCreateComponent implements OnInit {
       price: ['',[Validators.required]]
     });
   }
+  get image(){
+    return this.form.get('image');
+  }
    get title(){
      return this.form.get('title');
    }

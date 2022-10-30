@@ -10,6 +10,7 @@ import {environment} from '../../../../environments/environment';
 export class UploadComponent implements OnInit {
   @Output() uploaded = new EventEmitter<string>();
   @Input() url:string;
+  image_url:string;
   constructor(private http: HttpClient) {
   }
 
@@ -25,6 +26,8 @@ export class UploadComponent implements OnInit {
     this.http.post(this.url, data)
       .subscribe((res: any) => {
           this.uploaded.emit(res.url);
+          this.image_url=res.url;
+
         }
         ,(err:any)=>console.log(err)
         

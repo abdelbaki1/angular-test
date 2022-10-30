@@ -49,6 +49,9 @@ export class ProfileComponent implements OnInit {
     });
     // this.infoForm?.patchValue(user);
   }
+  get image(){
+    return this.infoForm.get('image');
+  }
   infoSubmit(): void {
     this.authService.updateInfo(this.infoForm.getRawValue()).then(
       (user_obs)=>
