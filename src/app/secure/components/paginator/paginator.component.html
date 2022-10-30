@@ -1,13 +1,25 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item">
-      <a *ngIf="lastPage>1" (click)="next(page-1)" class="page-link" href="javascript:void(0)">Previous</a></li>
-    <li *ngFor="let number of page_list" class="page-item">
+      <a *ngIf="lastPage>1" (click)="next(page-1)" class="page-link" href="javascript:void(0)">Previous</a>
+    </li>
+    <li class="page-item">
+      <a *ngIf="page>1" (click)="next(1)" class="page-link" href="javascript:void(0)">1</a>
+    </li>
+    <li *ngFor="let number of page_list.slice(page-1,page+page_number)" class="page-item">
       <a (click)="next(number)" class="page-link" href="javascript:void(0)">{{number}}</a>
+    </li>
+    <li class="page-item">
+      <a *ngIf="lastPage>page+page_number+1" class="page-link" href="javascript:void(0)">..</a>
     </li>
     
     <li class="page-item">
-      <a  *ngIf="lastPage>1" (click)="next(page+1)" class="page-link" href="javascript:void(0)">Next</a>
+      <a *ngIf="lastPage>(page+page_number)"(click)="next(lastPage)" class="page-link" href="javascript:void(0)">{{lastPage}}
+
+      </a>
+    </li>
+    <li class="page-item">
+      <a *ngIf="lastPage>1" (click)="next(page+1)" class="page-link" href="javascript:void(0)">Next</a>
     </li>
   </ul>
 </nav>
