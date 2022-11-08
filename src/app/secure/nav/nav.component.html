@@ -1,13 +1,17 @@
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" routerLink="/">Company name</a>
 
-  <nav *ngIf="user" class="my-2 my-md-0 mr-md-3">
-    
-    <button routerLink="/profile" class="p-2 text-white text-decoration-none bg-dark bg-gradient">
-      {{user.first_name}}  {{user.last_name}}
-      <img src="..." class="img-fluid" alt="...">
-     </button>
-    
-    <button class="p-2 text-white text-decoration-none bg-dark bg-gradient" (click)="logout()">Sign out</button>
+  <nav *ngIf="user" class="my-2 my-md-0 mr-md-3 ">
+    <div class="container center">
+      <!-- <a routerLink="/profile" > -->
+        <!-- <button class="btn btn-primary" type="button"> -->
+          <img routerLink="/profile" [src]=image alt="image">
+        <!-- </button> -->
+
+      <!-- </a> -->
+
+      <button class="p-2 text-white text-decoration-none bg-dark bg-gradient" (click)="logout()">Sign out</button>
+
+    </div>
   </nav>
 </header>

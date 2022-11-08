@@ -5,6 +5,8 @@ import {Auth} from '../../classes/auth';
 import { User } from 'src/app/interfaces/user';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   infoForm: FormGroup |undefined;
   passwordForm: FormGroup;
-  url_upload=''
+  url_upload=`${environment.server_url}/upload`
   constructor(
     private router:Router,
     private formBuilder: FormBuilder,
@@ -24,9 +26,7 @@ export class ProfileComponent implements OnInit {
       (user1:User) => {
         console.log("**************");
         this.infoForm?.patchValue(user1);
-        
-        
-      
+
       },
       err=>console.log(err)
       
@@ -34,13 +34,14 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("profile");
+
     const user:User = Auth.user;
     console.log(user);
     this.infoForm = this.formBuilder.group({
       first_name: user.first_name,
       last_name: user.last_name,
-      email: user.email
+      email: user.email,
+      user_image:user.user_image
     });
 
     this.passwordForm = this.formBuilder.group({
@@ -50,17 +51,22 @@ export class ProfileComponent implements OnInit {
     // this.infoForm?.patchValue(user);
   }
   get image(){
-    return this.infoForm.get('image');
+    return this.infoForm.get('user_image').value;
   }
   infoSubmit(): void {
+    console.log(this.infoForm.getRawValue());
+    
     this.authService.updateInfo(this.infoForm.getRawValue()).then(
       (user_obs)=>
         {if(!user_obs)Swal.fire('there was an error while changing','','error');
         else{
         user_obs.subscribe(
           {next:(user)=> {
+            console.log(user);
             Swal.fire('USER DETAIL CHANGED','','info')
-            Auth.userEmitter.emit(user);this.router.navigate(['/dashboard'])}}
+            Auth.user=user;
+            Auth.userEmitter.emit(user);
+            this.router.navigate(['/dashboard'])}}
           )
         }
       

@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductCreateComponent implements OnInit {
   form: FormGroup;
-  url_image:string=`${environment.api}/products/upload`
+  url_image:string=`${environment.server_url}/upload`
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService,

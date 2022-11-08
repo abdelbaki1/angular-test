@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SecurityContext} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {User} from '../../interfaces/user';
 import {Auth} from '../../classes/auth';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-nav',
@@ -12,22 +13,23 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   user: User=null;
+  image:SafeUrl;
 
-  constructor(private router:Router,private authService: AuthService) {
+  constructor(private router:Router,private authService: AuthService,private sanitizer:DomSanitizer) {
   }
 
   ngOnInit(): void {
     Auth.userEmitter.subscribe((user:User) =>{
-    // console.log(user);
+    this.user = user
+    this.image=this.sanitizer.bypassSecurityTrustUrl(user.user_image)
+    // console.log(this.image);
     
-     this.user = user
-     ;
-    
+
     });
+
   }
 
   logout(): void {
-    
     this.authService.logout().then(
       (result_observable)=>{
         result_observable.subscribe

@@ -13,7 +13,7 @@
     <input formControlName="email" class="form-control" name="email">
     
   </div>
-  <app-upload [url]="url_upload" (uploaded)="infoForm.patchValue({'image': $event})"></app-upload>
+  <app-upload [image_url]="image" [url]="url_upload" (uploaded)="infoForm.patchValue({'user_image': $event})"></app-upload>
  
   
   <button class="btn btn-outline-secondary">Save</button>

@@ -1,3 +1,4 @@
+import { SafeUrl } from '@angular/platform-browser';
 import {Role} from './role';
 
 export interface User {
@@ -6,4 +7,5 @@ export interface User {
   last_name: string;
   email: string;
   role: Role;
+  user_image:string;
 }

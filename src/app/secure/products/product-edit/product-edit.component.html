@@ -9,10 +9,10 @@
   </div>
   <div class="mb-3">
     <label>Image</label>
-    <div class="input-group">
-      <input formControlName="image" class="form-control" name="image">
-      <app-upload (uploaded)="form.patchValue({'image': $event})"></app-upload>
-    </div>
+    <!-- <div class="input-group"> -->
+      <!-- <input formControlName="image" class="form-control" name="image"> -->
+      <app-upload [image_url]="image" [url]="url_edit" (uploaded)="form.patchValue({'image': $event})"></app-upload>
+    <!-- </div> -->
   </div>
   <div class="mb-3">
     <label>Price</label>

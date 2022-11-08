@@ -1,0 +1,10 @@
+img{
+    width: 4%;
+    border-radius: 15px;
+    cursor: pointer;
+    
+}
+.center{
+    display: flex;
+    justify-content: end;
+}

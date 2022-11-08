@@ -21,6 +21,7 @@ import { ProductEditComponent } from './products/product-edit/product-edit.compo
 import { OrdersComponent } from './orders/orders.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomepageComponent } from './homepage/homepage.component';
+import { LogsComponent } from './logs/logs.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     UploadComponent,
     ProductEditComponent,
     OrdersComponent,
-    HomepageComponent
+    HomepageComponent,
+    LogsComponent
   ],
   exports: [
     SecureComponent

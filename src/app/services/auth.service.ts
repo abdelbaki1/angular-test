@@ -58,7 +58,7 @@ export class AuthService {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        return this.http.put<User>(`${environment.api}/users/users/info`, data);}
+        return this.http.patch<User>(`${environment.api}/users/users/info`, data);}
          else if (result.isDenied) {
            console.log('denied');
          return undefined

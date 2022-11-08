@@ -18,6 +18,7 @@ import {ProductEditComponent} from './secure/products/product-edit/product-edit.
 import {OrdersComponent} from './secure/orders/orders.component';
 import { Page404Component } from './public/page404/page404.component';
 import { HomepageComponent } from './secure/homepage/homepage.component';
+import { LogsComponent } from './secure/logs/logs.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
       {path: 'products/create', component: ProductCreateComponent},
       {path: 'products/:id/edit', component: ProductEditComponent},
       {path: 'orders', component: OrdersComponent},
+      {path:'logs',component:LogsComponent}
       // 
     ]
   },

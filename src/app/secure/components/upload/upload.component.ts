@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-upload',
@@ -10,11 +10,13 @@ import {environment} from '../../../../environments/environment';
 export class UploadComponent implements OnInit {
   @Output() uploaded = new EventEmitter<string>();
   @Input() url:string;
-  image_url:string;
+  @Input() image_url:string;
   constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
+    console.log(this.image_url);
+    
   }
 
   upload(files: FileList): void {
@@ -25,12 +27,14 @@ export class UploadComponent implements OnInit {
 
     this.http.post(this.url, data)
       .subscribe((res: any) => {
+
           this.uploaded.emit(res.url);
           this.image_url=res.url;
+          console.log(this.image_url);
 
         }
         ,(err:any)=>console.log(err)
-        
+
       );
   }
 }

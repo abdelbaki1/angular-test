@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-edit',
@@ -9,6 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./product-edit.component.css']
 })
 export class ProductEditComponent implements OnInit {
+  url_edit :string =`${environment.server_url}/upload`
   form: FormGroup;
   id: number;
 
@@ -31,8 +33,14 @@ export class ProductEditComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
 
     this.productService.get(this.id).subscribe(
-      product => this.form.patchValue(product)
+      product => { ;
+       this.form.patchValue(product)
+       
+      }
     );
+  }
+  get image(){
+    return this.form.get('image').value
   }
 
   submit(): void {
