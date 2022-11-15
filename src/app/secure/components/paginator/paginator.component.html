@@ -1,31 +1,31 @@
 <nav *ngIf="page_list_current" aria-label="Page navigation example">
   <ul #unorderedlist class="pagination">
-    <li  class="page-item">
-      <a *ngIf="lastPage>1" (click)="next(page-1)" class="page-link" href="javascript:void(0)">Previous</a>
+    <li *ngIf="lastPage>1"  class="page-item">
+      <a  (click)="next(page-1,unorderedlist)" class="page-link" href="javascript:void(0)">Previous</a>
     </li>
     <!-- <ul class="pagination" > -->
-      <li *ngIf="page_list_current[0]>=2"  class="page-item  ">
-        <a (click)="next(1)" class="page-link" href="javascript:void(0)">1</a>
+      <li [id]="1" *ngIf="!page_list_current.includes(1)"  class="page-item  ">
+        <a (click)="next(1,unorderedlist)" class="page-link" href="javascript:void(0)">1</a>
       </li>
       <li  *ngIf="page_list_current[0]>=page_number" class="page-item ">
         <a class="page-link" href="javascript:void(0)">....</a>
       </li>
     <!-- </ul>     -->
-    <li #marked  *ngFor="let number of page_list_current " class="page-item">
-      <a (click)="next(number,unorderedlist,marked)" class="page-link" href="javascript:void(0)">{{number}}</a>
+    <li #marked [id]="number"  *ngFor="let number of page_list_current " class="page-item">
+      <a (click)="next(number,unorderedlist)" class="page-link" href="javascript:void(0)">{{number}}</a>
     </li>
   <!-- </ul> -->
     <li class="page-item">
       <a  *ngIf="!page_list_current.includes(lastPage)" class="page-link" href="javascript:void(0)">...</a>
     </li>
 
-    <li #last class="page-item">
-      <a *ngIf="!page_list_current.includes(lastPage)" (click)="next(lastPage,unorderedlist,last)" class="page-link" href="javascript:void(0)">{{lastPage}}
+    <li [id]="lastPage" #last class="page-item">
+      <a *ngIf="!page_list_current.includes(lastPage)" (click)="next(lastPage,unorderedlist)" class="page-link" href="javascript:void(0)">{{lastPage}}
 
       </a>
     </li>
     <li  class="page-item">
-      <a *ngIf="lastPage>1" (click)="next(page+1)" class="page-link" href="javascript:void(0)">Next</a>
+      <a *ngIf="lastPage>1" (click)="next(page+1,unorderedlist)" class="page-link" href="javascript:void(0)">Next</a>
     </li>
   </ul>
 </nav>
