@@ -13,6 +13,9 @@
     <input formControlName="email" class="form-control" name="email">
     
   </div>
+  <div *ngIf="!image" class="alert alert-danger" role="alert">
+        Please Complete your Image !!!!
+      </div>
   <app-upload [image_url]="image" [url]="url_upload" (uploaded)="infoForm.patchValue({'user_image': $event})"></app-upload>
  
   

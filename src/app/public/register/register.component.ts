@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {AuthService} from '../../services/auth.service';
@@ -10,29 +11,34 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./register.component.css', './../public.component.css']
 })
 export class RegisterComponent implements OnInit {
-  firstName = '';
-  lastName = '';
-  email = '';
-  password = '';
-  passwordConfirm = '';
-
+  form:FormGroup;
   constructor(
-    private router: Router,
-    private authService: AuthService
+    private router : Router,
+    private authService: AuthService,
+    private Form : FormBuilder
   ) {
   }
 
   ngOnInit(): void {
+    this.form = this.Form.group({
+      first_name : [''],
+      last_name : [''],
+      email :[''],
+      password : [''],
+      password_confirm : [''],
+      group_name:[null,Validators.required],
+      
+    })
+  }
+  get group_name(){
+    return this.form.get('group_name')
   }
 
   submit(): void {
-    this.authService.register({
-      first_name: this.firstName,
-      last_name: this.lastName,
-      email: this.email,
-      password: this.password,
-      password_confirm: this.passwordConfirm,
-    }).subscribe(() => {Swal.fire({
+    console.log(this.form.getRawValue());
+    this.authService.register(
+      this.form.getRawValue()
+    ).subscribe(() => {Swal.fire({
       position: 'top-end',
       icon: 'success',
       title: 'registered succefuly',

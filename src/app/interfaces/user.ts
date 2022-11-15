@@ -8,4 +8,5 @@ export interface User {
   email: string;
   role: Role;
   user_image:string;
+  type_name:string;
 }

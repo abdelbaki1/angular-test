@@ -3,6 +3,7 @@ import {Order} from '../../interfaces/order';
 import {OrderService} from '../../services/order.service';
 import {saveAs} from 'file-saver';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Auth } from 'src/app/classes/auth';
 
 @Component({
   selector: 'app-orders',
@@ -28,6 +29,7 @@ export class OrdersComponent implements OnInit {
   show = false;
   IsSorted: Boolean=false;
   IsFirstSorted:Boolean=false;
+  type:string=Auth.user_type;
   constructor(private orderService: OrderService) {
   }
 

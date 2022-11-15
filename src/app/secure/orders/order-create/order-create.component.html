@@ -1,0 +1,58 @@
+<form [formGroup]="form" (submit)="submit()">
+    <div class="mb-3">
+      <label>Fist_name</label>
+      <input formControlName="first_name" class="form-control" name="title">
+      <div *ngIf="!first_name?.valid && (first_name?.dirty || first_name?.touched )" class="alert alert-danger" role="alert">
+      This Field is required!!
+    </div>
+    </div>
+    <div class="mb-3">
+      <label>last_name</label>
+      <input formControlName="last_name" class="form-control" name="last_name">
+        <div *ngIf="!last_name?.valid && (last_name?.dirty || last_name?.touched )" class="alert alert-danger" role="alert">
+      This Field is required!!
+    </div>
+      
+    </div>
+    <div class="mb-3">
+      <label>email</label>
+      <div class="input-group">
+        <input formControlName="email" class="form-control" name="email">
+
+      </div>
+  
+    </div>
+    <button class="btn btn-outline-secondary">Add product_title</button>
+    <table class="table table-sm">
+      
+
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Product Title</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr >
+        <td>1</td>
+        <td>
+          <input type="text" class="form_control">
+        </td>
+        <td>
+         <input type="text" class="form_control">
+       </td>
+       <td>
+       <input type="text" class="form_control">
+     </td>
+        <!-- <td>{{item.product_title}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.price}}</td> -->
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-outline-secondary">Exit</button>
+    <button [disabled]="!form.valid" class="btn btn-outline-secondary">Save</button>
+  </form>
+  

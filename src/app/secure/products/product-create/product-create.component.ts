@@ -4,6 +4,7 @@ import {ProductService} from '../../../services/product.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-create',
@@ -45,7 +46,14 @@ export class ProductCreateComponent implements OnInit {
     .then((result_obs)=>{
       if(result_obs){
         result_obs.subscribe(
-          () => this.router.navigate(['/products']))
+          {next: () => this.router.navigate(['/products']),
+          error:(error:HttpErrorResponse)=>{
+            Swal.fire(
+              error.error['detail'],
+              "<a routerLink='/logs'>go back to to home page</a>",
+              'error');
+              this.router.navigate(['/products'])
+            }})
         }
         else{
           Swal.fire('there was an error while creating user object')

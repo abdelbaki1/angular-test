@@ -31,7 +31,10 @@ export class LoginComponent implements OnInit {
 
   submit(): void {
     this.authService.login(this.form.getRawValue())
-      .subscribe(() => {Swal.fire({
+      .subscribe((res) => {console.log(res);
+       Auth.user_type=res.type;console.log(Auth.user_type);
+       
+       ; Swal.fire({
         position: 'top-end',
         icon: 'success',
         title: 'welcom',

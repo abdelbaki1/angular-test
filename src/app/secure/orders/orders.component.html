@@ -1,5 +1,6 @@
-<div class="pt-3 pb-2 mb-3 border-bottom">
-  <a (click)="export()" class="btn btn-sm btn-outline-secondary">Export</a>
+<div class="pt-3 pb-2 mb-3 sepreat_it ">
+  <a (click)="export()" class="btn btn-sm btn-outline-secondary ">Export</a>
+  <a routerLink="/orders/create" class="btn btn-sm btn-outline-secondary">Add</a>
 </div>
 
 <div class="table-responsive">
@@ -33,6 +34,7 @@
         <td>
           <div class="btn-group mr-2">
             <a class="btn btn-sm btn-outline-secondary" (click)="select(order.id)">View</a>
+            <a [routerLink]="['/order', order.id, 'edit']" [disabled]="type == 'doctor'" class="btn btn-secondary">edit</a>
           </div>
         </td>
       </tr>
@@ -57,6 +59,7 @@
               </tr>
               </tbody>
             </table>
+            
           </div>
         </td>
       </tr>

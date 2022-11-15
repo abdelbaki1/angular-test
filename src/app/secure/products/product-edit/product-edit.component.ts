@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../../services/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-edit',
@@ -36,6 +38,10 @@ export class ProductEditComponent implements OnInit {
       product => { ;
        this.form.patchValue(product)
        
+      },(error:HttpErrorResponse)=>{
+        if(error.status==403)
+         Swal.fire(error.statusText,'','error')
+          // this.router.navigate(['/forbiddent'])
       }
     );
   }

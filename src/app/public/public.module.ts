@@ -6,6 +6,7 @@ import {RegisterComponent} from './register/register.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Page404Component } from './page404/page404.component';
+import { ForbiddentComponent } from './forbiddent/forbiddent.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { Page404Component } from './page404/page404.component';
     PublicComponent,
     LoginComponent,
     RegisterComponent,
-    Page404Component
+    Page404Component,
+    ForbiddentComponent
   ],
   imports: [
     CommonModule,

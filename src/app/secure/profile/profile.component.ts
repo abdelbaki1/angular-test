@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {Auth} from '../../classes/auth';
 import { User } from 'src/app/interfaces/user';
@@ -34,6 +34,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(Auth.user,Auth.user_type);
+    
 
     const user:User = Auth.user;
     console.log(user);
@@ -41,7 +43,7 @@ export class ProfileComponent implements OnInit {
       first_name: user.first_name,
       last_name: user.last_name,
       email: user.email,
-      user_image:user.user_image
+      user_image:[user.user_image,Validators.required]
     });
 
     this.passwordForm = this.formBuilder.group({

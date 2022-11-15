@@ -42,7 +42,22 @@ export class PaginatorComponent implements OnInit,OnChanges {
     
   }
 
-  next(number): void {
+  next(number,ul:HTMLElement,li:HTMLElement): void {
+    
+   ul.getElementsByClassName("active")[0]?.classList.remove("active");
+   console.log(li);
+   
+   li.classList.add("active")
+
+  
+
+  //  active_li.classList.remove('active')
+
+   
+
+    
+    if(li.classList.contains('active'))
+    li.classList.add('active')
     
     if (number > this.lastPage || number < 1 || number == this.page) {
       return;
@@ -51,8 +66,6 @@ export class PaginatorComponent implements OnInit,OnChanges {
     if(this.page==1)
         this.page_list_current=this.page_list.slice(this.page-1,this.page+this.page_number);
     this.pageChanged.emit(number);
-    // if(this.page==this.lastPage)
-    //         return;
     if(number==this.page_list_current[this.page_list_current.length -1 ])
        {
         if(this.page==this.lastPage)
@@ -63,16 +76,8 @@ export class PaginatorComponent implements OnInit,OnChanges {
         if(slice.length < this.page_number)
             { this.page_list_current.pop()
               this.page_list_current=this.page_list_current.concat(slice);
-
             }
         else
-            this.page_list_current=slice;
-
-      }
-      
-
-   
-    
-
+            this.page_list_current=slice;}
   }
 }

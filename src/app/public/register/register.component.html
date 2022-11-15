@@ -28,19 +28,32 @@
             <div class="card-body">
               <h1>register</h1>
               <p class="text-muted">Sign up to your account</p>
-              <form (submit)="submit()">
+    <form [formGroup]="form" (submit)="submit()">
     <h1 class="h3 mb-3 fw-normal">Please register</h1>
 
-    <input [(ngModel)]="firstName" name="first_name" class="form-control" placeholder="First Name" required>
+    <input formControlName="first_name" name="first_name" class="form-control" placeholder="First Name" required>
 
-    <input [(ngModel)]="lastName" name="last_name" class="form-control" placeholder="Last Name" required>
+    <input formControlName="last_name" name="last_name" class="form-control" placeholder="Last Name" required>
 
-    <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Email address" required>
+    <input formControlName="email" name="email" type="email" class="form-control" placeholder="Email address" required>
 
-    <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Password" required>
+    <input formControlName="password" name="password" type="password" class="form-control" placeholder="Password" required>
 
-    <input [(ngModel)]="passwordConfirm" name="password_confirm" type="password" class="form-control"
+    <input formControlName="password_confirm" name="password_confirm" type="password" class="form-control"
            placeholder="Password Confirm" required>
+    <label class="form-check-label" for="inlineCheckbox1">you are:</label>
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" formControlName="group_name" type="radio" id="inlineCheckbox1" value="patient" >
+  <label class="form-check-label" for="inlineCheckbox1">Patient</label>
+</div>
+<div class="form-check form-check-inline">
+  <input #inp class="form-check-input" formControlName="group_name" type="radio" id="inlineCheckbox2" value="doctor">
+  <label class="form-check-label" for="inlineCheckbox2">Doctor</label>
+</div>
+<div *ngIf="!group_name?.valid && (group_name?.dirty || group_name?.touched )" class="alert alert-danger" role="alert">
+  Please identify your self !!
+</div>
+
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
   </form>

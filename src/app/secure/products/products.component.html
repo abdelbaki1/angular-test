@@ -1,5 +1,5 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-  <a routerLink="/products/create" class="btn btn-sm btn-outline-secondary">Add</a>
+  <button routerLink="/products/create" [hidden]="type=='doctor'" class="btn btn-sm btn-outline-secondary">Add</button>
 </div>
 
 <div class="table-responsive">
@@ -15,7 +15,7 @@
         </div>
       </th>
       <th>Price</th>
-      <th>Action</th>
+      <th [hidden]="type=='doctor'">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -26,10 +26,10 @@
       <td>{{product.price}}</td>
       <td>
         <div class="btn-group mr-2">
-          <a [routerLink]="['/products', product.id, 'edit']" class="btn btn-sm btn-outline-secondary">Edit</a>
-          <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary"
+          <button [routerLink]="['/products', product.id, 'edit']" [hidden]="type === 'doctor'" class="btn btn-sm btn-outline-secondary">Edit</button>
+          <button href="javascript:void(0)" [hidden]="type === 'doctor'" class="btn btn-sm btn-outline-secondary"
              (click)="delete(product.id)"
-          >Delete</a>
+          >Delete</button>
         </div>
       </td>
     </tr>

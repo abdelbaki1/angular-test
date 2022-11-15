@@ -1,0 +1,7 @@
+.sepreat_it{
+    display: flex;
+    justify-content: space-between;
+}
+.full_width{
+    width: 100%;
+}

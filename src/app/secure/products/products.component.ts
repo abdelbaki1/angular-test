@@ -1,4 +1,7 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+import { Auth } from 'src/app/classes/auth';
 import Swal from 'sweetalert2';
 import {Product} from '../../interfaces/product';
 import {ProductService} from '../../services/product.service';
@@ -13,13 +16,19 @@ export class ProductsComponent implements OnInit {
   lastPage: number;
   IsSorted: Boolean;
   IsFirstSorted: boolean;
+  type:string=Auth.user_type
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private router : Router) {
   }
+
 
 
   ngOnInit(): void {
     this.load();
+    console.log(Auth.user_type,this.type=='doctor');
+    
   }
 
   load(page = 1): void {
@@ -31,6 +40,10 @@ export class ProductsComponent implements OnInit {
         this.lastPage = res.meta.total_pages;
         this.IsFirstSorted=false;
 
+      },(error:HttpErrorResponse)=>{
+        if(error.status==403)
+         Swal.fire(error.error['detail'],'','error')
+          // this.router.navigate(['/forbiddent'])
       }
     );
   }
@@ -48,6 +61,10 @@ export class ProductsComponent implements OnInit {
                   'product has been deleted.',
                   'success'
                 )
+              },(error:HttpErrorResponse)=>{
+                if(error.status==403)
+                 Swal.fire(error.statusText,'','error')
+                  // this.router.navigate(['/forbiddent'])
               }
         );}
       })
