@@ -6,6 +6,7 @@ import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { Alerts } from 'src/app/classes/Alerts';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-edit',
@@ -56,7 +57,7 @@ export class UserEditComponent implements OnInit {
         });
         if(user.role)
         this.form.patchValue({role_id: user.role.id})
-      }
+      },(e:HttpErrorResponse) =>{if(e.status==403){Swal.fire(e.statusText,e.error['detail'],'error');this.router.navigate(['/dashboard'])}}
     );
   }
 

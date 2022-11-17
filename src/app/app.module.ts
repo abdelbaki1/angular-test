@@ -8,6 +8,7 @@ import {PublicModule} from './public/public.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CredentialInterceptor} from './interceptors/credential.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AuthUsersService } from './secure/users/auth-users.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: CredentialInterceptor,
       multi: true
-    }
+    },AuthUsersService
   ],
   bootstrap: [AppComponent]
 })

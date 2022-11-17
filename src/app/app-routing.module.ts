@@ -6,9 +6,6 @@ import {SecureComponent} from './secure/secure.component';
 import {PublicComponent} from './public/public.component';
 import {ProfileComponent} from './secure/profile/profile.component';
 import {DashboardComponent} from './secure/dashboard/dashboard.component';
-import {UsersComponent} from './secure/users/users.component';
-import {UserCreateComponent} from './secure/users/user-create/user-create.component';
-import {UserEditComponent} from './secure/users/user-edit/user-edit.component';
 import {RolesComponent} from './secure/roles/roles.component';
 import {RoleCreateComponent} from './secure/roles/role-create/role-create.component';
 import {RoleEditComponent} from './secure/roles/role-edit/role-edit.component';
@@ -21,6 +18,7 @@ import { HomepageComponent } from './secure/homepage/homepage.component';
 import { LogsComponent } from './secure/logs/logs.component';
 import { OrderEditComponent } from './secure/orders/order-edit/order-edit.component';
 import { OrderCreateComponent } from './secure/orders/order-create/order-create.component';
+import { AuthUsersService } from './secure/users/auth-users.service';
 
 const routes: Routes = [
   {
@@ -31,20 +29,25 @@ const routes: Routes = [
       {path:'home',component:HomepageComponent},
       {path: 'dashboard', component: DashboardComponent},
       {path: 'profile', component: ProfileComponent},
-      {path: 'users', component: UsersComponent},
-      {path: 'users/create', component: UserCreateComponent},
-      {path: 'users/:id/edit', component: UserEditComponent},
-      {path: 'roles', component: RolesComponent},
-      {path: 'roles/create', component: RoleCreateComponent},
-      {path: 'roles/:id/edit', component: RoleEditComponent},
-      {path: 'products', component: ProductsComponent},
-      {path: 'products/create', component: ProductCreateComponent},
-      {path: 'products/:id/edit', component: ProductEditComponent},
+      {path: 'roles',loadChildren:
+      ()=>
+        import('./secure/roles/roles.module').then(md => md.RolesModule)
+      ,canLoad:[AuthUsersService]},
+      {path: 'products',loadChildren:
+      () => import('./secure/products/products.module').then(mod => mod.ProductsModule)},
       {path: 'orders', component: OrdersComponent},
       {path: 'orders/create', component: OrderCreateComponent},
       {path: 'orders/:id/edit', component: OrderEditComponent},
-      {path:'logs',component:LogsComponent}
-      // 
+      {path:'logs',
+      loadChildren:
+      ()=> import('./secure/logs/logs.module').then(md=>md.LogsModule)
+      ,canLoad:[AuthUsersService] 
+    },
+      {path:'users',
+        loadChildren:
+         () => import('./secure/users/users.module').then(mod => mod.UsersModule)
+        ,canLoad:[AuthUsersService] 
+        }
     ]
   },
   {

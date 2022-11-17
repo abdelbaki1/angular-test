@@ -24,31 +24,32 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { LogsComponent } from './logs/logs.component';
 import { OrderCreateComponent } from './orders/order-create/order-create.component';
 import { OrderEditComponent } from './orders/order-edit/order-edit.component';
+import { UsersModule } from './users/users.module';
 
 
 @NgModule({
   declarations: [
+    UploadComponent,
     NavComponent,
     MenuComponent,
     SecureComponent,
     ProfileComponent,
     DashboardComponent,
     UsersComponent,
-    UserCreateComponent,
-    UserEditComponent,
     RolesComponent,
-    RoleCreateComponent,
-    RoleEditComponent,
     ProductsComponent,
     PaginatorComponent,
-    ProductCreateComponent,
-    UploadComponent,
-    ProductEditComponent,
     OrdersComponent,
     HomepageComponent,
     LogsComponent,
     OrderCreateComponent,
-    OrderEditComponent
+    OrderEditComponent,
+    ProductEditComponent,
+    RoleEditComponent,
+    RoleCreateComponent,
+    ProductCreateComponent,
+    UserCreateComponent,
+    UserEditComponent
   ],
   exports: [
     SecureComponent
@@ -58,7 +59,9 @@ import { OrderEditComponent } from './orders/order-edit/order-edit.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule
+    
   ]
 })
 export class SecureModule {

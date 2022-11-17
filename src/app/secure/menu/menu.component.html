@@ -8,10 +8,10 @@
         <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">dashboard</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/users" routerLinkActive="active" class="nav-link">Users</a>
+        <a routerLink="/users" [hidden]="type!='admin'" routerLinkActive="active" class="nav-link">Users</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/roles" routerLinkActive="active" class="nav-link">Roles</a>
+        <a routerLink="/roles" [hidden]="type!='admin'" routerLinkActive="active" class="nav-link">Roles</a>
       </li>
       <li class="nav-item">
         <a routerLink="/products" routerLinkActive="active" class="nav-link">Products</a>
@@ -20,7 +20,7 @@
         <a routerLink="/orders" routerLinkActive="active" class="nav-link">Orders</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/logs" routerLinkActive="active" class="nav-link">logs</a>
+        <a routerLink="/logs" [hidden]="type!='admin'" routerLinkActive="active" class="nav-link">logs</a>
       </li>
       
     </ul>
