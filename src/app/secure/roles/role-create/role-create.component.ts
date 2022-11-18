@@ -5,6 +5,7 @@ import {PermissionService} from '../../../services/permission.service';
 import {RoleService} from '../../../services/role.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-role-create',
@@ -64,7 +65,15 @@ export class RoleCreateComponent implements OnInit {
       (result_obs)=>
       {if(result_obs){
         result_obs.subscribe(
-          () => this.router.navigate(['/roles']))
+          () => this.router.navigate(['/roles'])
+          ,(error:HttpErrorResponse) => {
+            if(error.status == 403)
+            {
+              Swal.fire(error.statusText,error.error['detail'],'error')
+          this.router.navigate(['/orders']);
+            }
+          }
+          )
         }
         else{
           Swal.fire('there was an error while creating role object')

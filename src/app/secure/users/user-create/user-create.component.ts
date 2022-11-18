@@ -5,6 +5,7 @@ import {Role} from '../../../interfaces/role';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-create',
@@ -62,7 +63,14 @@ export class UserCreateComponent implements OnInit {
         Swal.fire('user added successfully','','success');
         result_obs.subscribe(
 
-          () => this.router.navigate(['/users']))
+          () => this.router.navigate(['/users']),
+          (error:HttpErrorResponse) => {
+            if(error.status == 403)
+            {
+              Swal.fire(error.statusText,error.error['detail'],'error')
+          this.router.navigate(['/orders']);
+            }
+          })
         }
     else{
           Swal.fire('there was an error while creating user object')

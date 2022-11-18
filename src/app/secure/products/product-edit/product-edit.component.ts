@@ -35,13 +35,13 @@ export class ProductEditComponent implements OnInit {
     this.id = this.route.snapshot.params.id;
 
     this.productService.get(this.id).subscribe(
-      product => { ;
+      product => {
        this.form.patchValue(product)
        
       },(error:HttpErrorResponse)=>{
         if(error.status==403)
-         Swal.fire(error.statusText,'','error')
-          // this.router.navigate(['/forbiddent'])
+         Swal.fire(error.error['detail'],'','error')
+          this.router.navigate(['/home'])
       }
     );
   }
@@ -57,7 +57,12 @@ export class ProductEditComponent implements OnInit {
         else
           {
           obs.subscribe(
-            ()=>this.router.navigate(['/products']))
+            ()=>this.router.navigate(['/products'])
+            ,(error:HttpErrorResponse) => {
+                Swal.fire(error.statusText,error.error['detail'],'error')
+            this.router.navigate(['/orders']);
+            }
+            )
           }
         })
         

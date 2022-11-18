@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoleService} from '../../services/role.service';
 import {Role} from '../../interfaces/role';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-roles',
@@ -46,7 +47,13 @@ export class RolesComponent implements OnInit {
                   'Role has been deleted.',
                   'success'
                 )
-              }
+              },
+          (error:HttpErrorResponse) => {
+            if(error.status == 403)
+            {
+              Swal.fire(error.statusText,error.error['detail'],'error')
+            }
+          }
         );}
       })
   }

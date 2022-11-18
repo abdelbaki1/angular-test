@@ -27,7 +27,7 @@
       <td>{{user.id}}</td>
       <td>{{user.first_name}} {{user.last_name}}</td>
       <td>{{user.email}}</td>
-      <td  *ngIf="user.role;else norole" > {{user.role.name}} </td>
+      <td  *ngIf="user.groups[0] else norole" > {{user.groups[0].name}} </td>
       <ng-template #norole><td>no role</td></ng-template>
       
       <td>

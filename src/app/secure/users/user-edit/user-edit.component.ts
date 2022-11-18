@@ -55,8 +55,9 @@ export class UserEditComponent implements OnInit {
           
             
         });
-        if(user.role)
-        this.form.patchValue({role_id: user.role.id})
+        if(user.groups)
+        {this.form.patchValue({role_id: user.groups[0].id}),console.log(this.form);
+        }
       },(e:HttpErrorResponse) =>{if(e.status==403){Swal.fire(e.statusText,e.error['detail'],'error');this.router.navigate(['/dashboard'])}}
     );
   }
