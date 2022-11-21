@@ -5,7 +5,9 @@ import {Role} from '../../../interfaces/role';
 import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
+
 
 @Component({
   selector: 'app-user-create',
@@ -15,19 +17,22 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UserCreateComponent implements OnInit {
   form: FormGroup;
   roles: Role[] = [];
+  page_num: any;
+  selectedCityId :string;
 
   constructor(
     private formBuilder: FormBuilder,
     private roleService: RoleService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private http : HttpClient
   ) {
   }
   get first_name() {
     return this.form.get('first_name');
     
   }
- 
+  
   get last_name() {
     return this.form.get('last_name');
   }
@@ -38,7 +43,11 @@ export class UserCreateComponent implements OnInit {
   get email() {
     return this.form.get('email');
   }
+  addrole(value:Role){
+    //  console.log(value);
+    this.form.patchValue({'role_id':value.id})
 
+  }
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       first_name: ['',[Validators.required]],
@@ -48,11 +57,18 @@ export class UserCreateComponent implements OnInit {
       password:['',[Validators.required]]
     }
     );
-    
-    this.roleService.all().subscribe(
+      }
+  getlist(){
+    this.http.get(environment.api+ '/users/unpagenatedroles').subscribe(
 
-      (roles:any) => this.roles = roles.data
+      (roles:any) => {
+        this.roles = roles
+         console.log(this.roles,environment.api+ '/users/unpagenatedroles');
+      }
+
+      
     );
+
   }
 
 

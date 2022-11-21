@@ -8,16 +8,15 @@ import { User } from 'src/app/interfaces/user';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  type :string;
+  type :boolean;
  
 
   constructor() { }
 
   ngOnInit(): void {
     Auth.userEmitter.subscribe((user:User) =>{
-      this.type = user.type_name
+      this.type = user.type_name.startsWith('admin');
     })
-    console.log(this.type);
     
   }
 

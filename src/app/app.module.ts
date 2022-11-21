@@ -5,10 +5,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {SecureModule} from './secure/secure.module';
 import {PublicModule} from './public/public.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CredentialInterceptor} from './interceptors/credential.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthUsersService } from './secure/users/auth-users.service';
+
 
 @NgModule({
   declarations: [
@@ -19,8 +22,10 @@ import { AuthUsersService } from './secure/users/auth-users.service';
     AppRoutingModule,
     SecureModule,
     PublicModule,
+    NgSelectModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [
     {

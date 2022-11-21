@@ -20,6 +20,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {
     Auth.userEmitter.subscribe((user:User) =>{
+
     this.user = user
     user.user_image ? this.image= this.sanitizer.bypassSecurityTrustUrl(user.user_image) : this.image = null
     });

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Auth } from 'src/app/classes/auth';
 import Swal from 'sweetalert2';
 import {Product} from '../../interfaces/product';
@@ -17,25 +17,33 @@ export class ProductsComponent implements OnInit {
   IsSorted: Boolean;
   IsFirstSorted: boolean;
   type:string=Auth.user_type
+  _search_string:string;
+  paged: number;
 
   constructor(
     private productService: ProductService,
-    private router : Router) {
+    private router : Router,
+    private active_route:ActivatedRoute) {
   }
 
 
 
   ngOnInit(): void {
-    this.load();
-    console.log(Auth.user_type,this.type=='doctor');
+    this.active_route.queryParamMap.subscribe(
+      (params:ParamMap)=> this.load(parseInt(params.get('page')))
+      )
+    ///take the page number from the query params
+    
+    // console.log(Auth.user_type,this.type=='doctor');
     
   }
 
   load(page = 1): void {
-    this.productService.all(page).subscribe(
+    this.active_route.queryParamMap.subscribe(
+      (params:ParamMap)=>{
+    this.productService.all(this.paged).subscribe(
       res => {
         console.log(res);
-        
         this.products = res.data;
         this.lastPage = res.meta.total_pages;
         this.IsFirstSorted=false;
@@ -47,6 +55,7 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
+    )}
 
   delete(id: number): void {
     this.productService.delete(id).then(
@@ -63,7 +72,7 @@ export class ProductsComponent implements OnInit {
                 )
               },(error:HttpErrorResponse)=>{
                 if(error.status==403)
-                 Swal.fire(error.statusText,'','error')
+                 Swal.fire(error.error['detail'],'','error')
                   // this.router.navigate(['/forbiddent'])
               }
         );}
@@ -85,5 +94,7 @@ export class ProductsComponent implements OnInit {
         this.IsSorted=false
         console.log(col.lastElementChild.classList);
   }
-} 
+  this.router.navigate([],{queryParams:{sort:c},queryParamsHandling:'merge'})
 }
+}
+

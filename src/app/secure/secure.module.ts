@@ -25,6 +25,10 @@ import { LogsComponent } from './logs/logs.component';
 import { OrderCreateComponent } from './orders/order-create/order-create.component';
 import { OrderEditComponent } from './orders/order-edit/order-edit.component';
 import { UsersModule } from './users/users.module';
+import { SearchComponent } from './components/search/search.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+
 
 
 @NgModule({
@@ -49,7 +53,10 @@ import { UsersModule } from './users/users.module';
     RoleCreateComponent,
     ProductCreateComponent,
     UserCreateComponent,
-    UserEditComponent
+    UserEditComponent,
+    SearchComponent,
+
+    
   ],
   exports: [
     SecureComponent
@@ -60,7 +67,8 @@ import { UsersModule } from './users/users.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule
+    BrowserModule,
+    NgSelectModule
     
   ]
 })

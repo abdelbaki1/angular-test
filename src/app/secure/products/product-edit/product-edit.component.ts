@@ -60,7 +60,7 @@ export class ProductEditComponent implements OnInit {
             ()=>this.router.navigate(['/products'])
             ,(error:HttpErrorResponse) => {
                 Swal.fire(error.statusText,error.error['detail'],'error')
-            this.router.navigate(['/orders']);
+            this.router.navigate(['/products']);
             }
             )
           }

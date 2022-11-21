@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service';
 import {User} from '../../interfaces/user';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -16,7 +17,9 @@ export class UsersComponent implements OnInit {
 is_sort_column={'email':false,'first_name':false};
 
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+    private active_route :ActivatedRoute,
+    private router:Router) {
   }
 
   ngOnInit(): void {
@@ -24,20 +27,19 @@ is_sort_column={'email':false,'first_name':false};
   }
 
   load(page = 1): void {
-    this.userService.all(page).subscribe(
-      (res: any) => {
-        console.log(res);
+    // this.active_route.queryParamMap.subscribe(
+    //   (params:ParamMap)=>{
 
-        console.log(res.data);
-        this.users = res.data;
-        this.lastPage = res.meta.total_pages;
-        console.log(this.is_sort_column['first_name']);
-      }
-    );
-    
-
-  }
-
+            this.userService.all(page).subscribe(
+              (res: any) => {
+                // console.log(res);
+                // console.log(res.data);
+                this.users = res.data;
+                this.lastPage = res.meta.total_pages;
+                // console.log(this.is_sort_column['first_name']);
+              }
+            )
+          }
   delete(id: number): void {
         this.userService.delete(id).then(
           (result_observable)=>{
@@ -74,6 +76,7 @@ is_sort_column={'email':false,'first_name':false};
       col.lastElementChild.classList.replace('fa-arrow-down','fa-arrow-up')
       this.IsSorted=false
     }
+    this.router.navigate([],{queryParams:{sort:critiera},queryParamsHandling:'merge'})
 
   }
 }

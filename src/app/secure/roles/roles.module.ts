@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { RolesRoutingModule } from './roles-routing.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,7 @@ import { RolesComponent } from './roles.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    RolesRoutingModule
+    RolesRoutingModule,
   ]
 })
 export class RolesModule { }

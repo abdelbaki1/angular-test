@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { User } from '../interfaces/user';
+import { ActivatedRoute, NavigationEnd, ParamMap, Params, Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +13,37 @@ export abstract class RestService {
 
   abstract get endpoint(): string;
 
-  constructor(protected http: HttpClient) {
-  }
+  constructor(protected http: HttpClient,
+    private active_route:ActivatedRoute,
+    private router:Router) {}
 
-  all(page?: number): Observable<any> {
+  all(page: number =1): Observable<any> {
+    var res:Observable<any>;
     let url = this.endpoint;
+    // if (page) {
+    //   url += `?page=${page}`;
+    // }
+    // this.active_route.queryParamMap.subscribe(
+    //   (params:ParamMap)=>{
+        let httparams = new HttpParams()
+        // for (const key of params.keys) {
+          httparams = httparams.set('page',page.toString())
+        // }
+        // if(parseInt(params.get('page'))<=1)
+        //     httparams = httparams.delete('page')
 
-    if (page) {
-      url += `?page=${page}`;
-    }
+        
+        console.log(url,httparams.toString());
+    
+        res = this.http.get(url,{'params':httparams});
+           
+          // }
+          // )
 
-    return this.http.get(url);
+    // console.log(url);
+    
+    return res;
+    
   }
 
   create(data): Promise<Observable<any>> {
