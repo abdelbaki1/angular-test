@@ -4,6 +4,7 @@ import {OrderService} from '../../services/order.service';
 import {saveAs} from 'file-saver';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { Auth } from 'src/app/classes/auth';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-orders',
@@ -30,13 +31,44 @@ export class OrdersComponent implements OnInit {
   IsSorted: Boolean=false;
   IsFirstSorted:Boolean=false;
   type:string=Auth.user_type;
+  order_perm: any;
+  form :FormData
   constructor(private orderService: OrderService) {
   }
 
   ngOnInit(): void {
+///////refresh the paginator 
     this.load();
-  }
+    this.order_perm = Auth.user.groups.filter(
+      (role_string:string)=>role_string.endsWith('order')
+      )
 
+    }
+    appendfile(files:FileList)
+    {
+      const file = files.item(0);
+      this.form = new FormData();
+      this.form.set('file',file);
+
+    }
+  import(){
+      this.orderService.import(this.form)
+        .subscribe((res:Order[]) => {
+          this.ngOnInit()
+          // add them to the order list
+            
+            // res.forEach(
+            //   (res_order)=>this.orders.push(res_order)
+            // )
+            // console.log(res,this.orders);
+
+          }
+          ,(err:any)=>console.log(err)
+  
+        );
+    
+    
+  }
   load(page = 1): void {
     this.orderService.all(page).subscribe(
       res => {

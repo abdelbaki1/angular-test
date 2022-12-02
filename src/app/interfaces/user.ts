@@ -5,6 +5,7 @@ export interface User {
   id: number;
   first_name: string;
   last_name: string;
+  groups : any[];
   email: string;
   role: Role;
   user_image:string;

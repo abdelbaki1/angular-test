@@ -13,15 +13,19 @@ export class AuthUsersService implements CanLoad {
 
   constructor(private router:Router) { }
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-      if( Auth.user?.type_name.startsWith("admin"))
+    // Auth.userEmitter.subscribe((user : User)=>
+    // {console.log(user,user.groups);
+    
+      if( Auth.user?.groups.includes('view_user'))
           this.value = true;
       else
       { this.router.navigate(['/home'])
         // Swal.fire('you need to be super to do this','','error')
         this.value = false
       }
-    // console.log(this.value);
-    return this.value;
-    // return true;
+// })
+console.log(this.value);
+
+return true;
 }
 }

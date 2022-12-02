@@ -4,6 +4,7 @@ import {User} from '../../interfaces/user';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Auth } from 'src/app/classes/auth';
 
 @Component({
   selector: 'app-users',
@@ -14,29 +15,46 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   lastPage: number;
   IsSorted:Boolean = false;
-is_sort_column={'email':false,'first_name':false};
+  is_sort_column={'email':false,'first_name':false};
+  _search = '';
+  user_perm: string[];
+  role_list : any[];
 
+set search(s:string){
+  this._search = s ;
 
+}
   constructor(private userService: UserService,
     private active_route :ActivatedRoute,
     private router:Router) {
   }
 
-  ngOnInit(): void {
-    this.load();
+   ngOnInit(): void {
+    console.log(
+      this.active_route.pathFromRoot)
+    this.user_perm = Auth.user.groups.filter(
+      (role_string:string)=>role_string.endsWith('user'))
+    this.load(1);
+
   }
-
-  load(page = 1): void {
-    // this.active_route.queryParamMap.subscribe(
-    //   (params:ParamMap)=>{
-
-            this.userService.all(page).subscribe(
+  filter(value){
+    console.log(value);
+  }
+  getfilter(){
+    this.role_list= Array.from(new Set( this.role_list))
+    console.log(this.role_list);
+    
+  }
+  load(page:number): void {
+            this.userService.all(page,this._search).subscribe(
               (res: any) => {
                 // console.log(res);
                 // console.log(res.data);
                 this.users = res.data;
                 this.lastPage = res.meta.total_pages;
                 // console.log(this.is_sort_column['first_name']);
+                this.role_list = this.users.map(
+                  (user : User)=>user.groups[0].name)
               }
             )
           }

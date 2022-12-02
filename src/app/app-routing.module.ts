@@ -32,7 +32,7 @@ const routes: Routes = [
       {path: 'roles',loadChildren:
       ()=>
         import('./secure/roles/roles.module').then(md => md.RolesModule)
-      ,canLoad:[AuthUsersService]},
+      },
       {path: 'products',loadChildren:
       () => import('./secure/products/products.module').then(mod => mod.ProductsModule)},
       {path: 'orders', component: OrdersComponent},
@@ -41,7 +41,7 @@ const routes: Routes = [
       {path:'logs',
       loadChildren:
       ()=> import('./secure/logs/logs.module').then(md=>md.LogsModule)
-      ,canLoad:[AuthUsersService] 
+      // ,canLoad:[AuthUsersService] 
     },
       {path:'users',
         loadChildren:

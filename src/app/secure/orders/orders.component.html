@@ -1,6 +1,12 @@
 <div class="pt-3 pb-2 mb-3 sepreat_it ">
   <a (click)="export()" class="btn btn-sm btn-outline-secondary ">Export</a>
-  <a routerLink="/orders/create" class="btn btn-sm btn-outline-secondary">Add</a>
+  <form action="">
+    <input (change)="appendfile($event.target.files)" type="file" class="btn btn-sm btn-outline-secondary " />
+    <button (click)="import()" type="submit"> import</button>
+  </form>
+  
+
+  <a routerLink="/orders/create" [hidden]="!order_perm.includes('add_order')" class="btn btn-sm btn-outline-secondary">Add</a>
 </div>
 
 <div class="table-responsive">
@@ -21,20 +27,20 @@
         </div>
       </th>
       <th>Total</th>
-      <th>Action</th>
+      <th *ngIf="order_perm.includes('delete_order')  ||  order_perm.includes('change_order')">Action</th>
     </tr>
     </thead>
     <tbody>
     <ng-container *ngFor="let order of orders">
       <tr>
         <td id="id">{{order.id}}</td>
-        <td > {{order.name}}</td>
+        <td > {{order.first_name}}</td>
         <td  id="email">{{order.email}}</td>
         <td id="total">{{order.total}}</td>
         <td>
           <div class="btn-group mr-2">
             <a class="btn btn-sm btn-outline-secondary" (click)="select(order.id)">View</a>
-            <a [routerLink]="['/order', order.id, 'edit']" [disabled]="type == 'doctor'" class="btn btn-secondary">edit</a>
+            <!-- <a [routerLink]="['/order', order.id, 'edit']" [hidden]="!order_perm.includes('change_order')" class="btn btn-secondary">edit</a> -->
           </div>
         </td>
       </tr>

@@ -1,6 +1,6 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-  <button routerLink="/products/create" [hidden]="type=='doctor'" class="btn btn-sm btn-outline-secondary">Add</button>
-  <app-search></app-search>
+  <button routerLink="/products/create" [hidden]="!product_perm.includes('add_product')" class="btn btn-sm btn-outline-secondary">Add</button>
+  <app-search ></app-search>
 </div>
 
 <div class="table-responsive">
@@ -10,13 +10,13 @@
       <th>#</th>
       <th>Image</th>
       <th>
-        <div #title class='top_end' style="cursor: pointer;" (click)="sortproducts('title',title)">
+        <div [id]="title" #title class='top_end' style="cursor: pointer;" (click)="sortproducts('title',title)">
           <a href="javascript:void(0)" >Title</a>
           <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
         </div>
       </th>
       <th>Price</th>
-      <th [hidden]="type=='doctor'">Action</th>
+      <th *ngIf="product_perm.includes('delete_product')||product_perm.includes('change_product')">Action</th>
     </tr>
     </thead>
     <tbody>
@@ -27,10 +27,8 @@
       <td>{{product.price}}</td>
       <td>
         <div class="btn-group mr-2">
-          <button [routerLink]="['/products', product.id, 'edit']" [hidden]="type === 'doctor'" class="btn btn-sm btn-outline-secondary">Edit</button>
-          <button href="javascript:void(0)" [hidden]="type === 'doctor'" class="btn btn-sm btn-outline-secondary"
-             (click)="delete(product.id)"
-          >Delete</button>
+          <button #edit [routerLink]="['/products', product.id, 'edit']" [hidden]="!product_perm.includes('change_product')" class="btn btn-sm btn-outline-secondary">Edit</button>
+          <button (click)="delete(product.id)" href="javascript:void(0)" [hidden]="!product_perm.includes('delete_product')" class="btn btn-sm btn-outline-secondary">Delete</button>
         </div>
       </td>
     </tr>

@@ -3,9 +3,18 @@
 <div class="container-fluid">
   <div class="row">
     <app-menu></app-menu>
-
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li *ngFor="let path of path_url;index as i" class="breadcrumb-item" >
+            <a *ngIf="i<path_url.length-2;else novoid" href="javascript:void(0)" (click)="navigate(i)">{{path}}</a>
+            <a *ngIf="i>=path_url.length-2" #novoid  (click)="navigate(i)">{{path}}</a>
+          </li>
+        </ol>
+      </nav>
       <router-outlet *ngIf="user"></router-outlet>
     </main>
+  
   </div>
 </div>

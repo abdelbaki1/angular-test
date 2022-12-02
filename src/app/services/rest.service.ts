@@ -17,26 +17,30 @@ export abstract class RestService {
     private active_route:ActivatedRoute,
     private router:Router) {}
 
-  all(page: number =1): Observable<any> {
+  all(page: number =1,search?:string): Observable<any> {
     var res:Observable<any>;
     let url = this.endpoint;
     // if (page) {
     //   url += `?page=${page}`;
     // }
+    let httparams = new HttpParams()
     // this.active_route.queryParamMap.subscribe(
     //   (params:ParamMap)=>{
-        let httparams = new HttpParams()
+        
         // for (const key of params.keys) {
           httparams = httparams.set('page',page.toString())
-        // }
-        // if(parseInt(params.get('page'))<=1)
-        //     httparams = httparams.delete('page')
+          if(search)
+              httparams = httparams.set('search',search)
 
-        
-        console.log(url,httparams.toString());
+      
+        if(page<=1)
+            httparams = httparams.delete('page')
+      
+        // console.log(url,httparams.toString());
     
         res = this.http.get(url,{'params':httparams});
-           
+      
+      
           // }
           // )
 

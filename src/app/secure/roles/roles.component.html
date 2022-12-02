@@ -1,6 +1,6 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-  <a routerLink="/roles/create" class="btn btn-sm btn-outline-secondary">Add</a>
-  <app-search></app-search>
+  <a routerLink="/roles/create" [hidden]="!role_perm?.includes('add_role')" class="btn btn-sm btn-outline-secondary">Add</a>
+  <app-search (serachEmitter)="search = $event;load(1)" ></app-search>
 </div>
 
 <div class="table-responsive">
@@ -14,7 +14,8 @@
           <i *ngIf="IsFirstSorted" class="fa fa-arrow-down" aria-hidden="true"></i>
         </div>
       </th>
-      <th>Action</th>
+      <th *ngIf="role_perm.includes('delete_role')||role_perm.includes('change_role')">Action</th>
+
     </tr>
     </thead>
     <tbody>
@@ -23,8 +24,8 @@
       <td>{{role.name}}</td>
       <td>
         <div class="btn-group mr-2">
-          <a [routerLink]="['/roles', role.id, 'edit']" class="btn btn-sm btn-outline-secondary">Edit</a>
-          <a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary"
+          <a *ngIf="role_perm?.includes('change_role')" [routerLink]="['/roles', role.id, 'edit']" class="btn btn-sm btn-outline-secondary">Edit</a>
+          <a *ngIf="role_perm?.includes('delete_role')" href="javascript:void(0)" class="btn btn-sm btn-outline-secondary"
              (click)="delete(role.id)"
           >Delete</a>
         </div>

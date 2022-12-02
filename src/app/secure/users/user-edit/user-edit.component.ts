@@ -89,12 +89,15 @@ export class UserEditComponent implements OnInit {
     console.log(this.form.getRawValue());
     this.userService.update(this.id,this.form.getRawValue())
                     .then(
-                      (obs)=>{if(!obs)this.router.navigate(['/users']);
+                      (obs)=>{
+                        if(!obs)
+                        this.router.navigate(['/users']);
                       else{
                         Swal.fire('user edited successfully','','success');
                       obs.subscribe(
-                        
-                        ()=>this.router.navigate(['/users']))
+                        ()=>{this.router.navigate(['/users'])},
+                        (error) =>{Swal.fire(error.error['detail'],'','error')}
+                        )
                       }
                     }
                         )

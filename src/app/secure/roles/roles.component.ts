@@ -4,6 +4,8 @@ import {Role} from '../../interfaces/role';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Auth } from 'src/app/classes/auth';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-roles',
@@ -15,23 +17,23 @@ export class RolesComponent implements OnInit {
   last_page:number;
   IsSorted: Boolean=false;
   IsFirstSorted:Boolean=false;
-  paged: number;
-  private _search_string: any;
-  search: string;
+  _search = '';
+  role_perm : string [];
+
+set search(s:string){
+  this._search = s ;
+
+}
+
 
   constructor(private roleService: RoleService,
     private active_route:ActivatedRoute,
     private r :Router
     ) {
   }
-  load(page=1){
-      // console.log(this.search,this.paged,page);
-      // this.active_route.queryParamMap.subscribe(
-      //   (params:ParamMap)=>{
-    this.roleService.all(page).subscribe(
+  load(page=1,search?:string){
+    this.roleService.all(page,this._search).subscribe(
       roles =>{
-        //console.log(this.roles)//,this.roles[0].getAttribute('id'));
-        
         this.last_page=roles?.meta?.total_pages
         this.roles = roles?.data;
         // console.log("last_page",this.last_page);    
@@ -39,11 +41,12 @@ export class RolesComponent implements OnInit {
       }
     );
     }
-
   ngOnInit(): void {
     this.active_route.queryParamMap.subscribe(
       (params:ParamMap)=> this.load(parseInt(params.get('page')))
       )
+    this.role_perm = Auth.user.groups.filter(
+    (role_string:string)=>role_string.endsWith('role'))
     
   }
 
