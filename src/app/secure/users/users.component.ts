@@ -13,6 +13,7 @@ import { Auth } from 'src/app/classes/auth';
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
+  filters:User[]=[]
   lastPage: number;
   IsSorted:Boolean = false;
   is_sort_column={'email':false,'first_name':false};
@@ -39,7 +40,17 @@ set search(s:string){
   }
   filter(value){
     console.log(value);
-  }
+    if(value)
+    {this.filters=this.users.filter(
+      (user:User)=>user.groups[0].name==value
+    )}
+    else{
+      this.filters=this.users
+    }
+    console.log(this.filters);
+
+    
+    }
   getfilter(){
     this.role_list= Array.from(new Set( this.role_list))
     console.log(this.role_list);
@@ -51,10 +62,13 @@ set search(s:string){
                 // console.log(res);
                 // console.log(res.data);
                 this.users = res.data;
+                this.filters=this.users;
                 this.lastPage = res.meta.total_pages;
                 // console.log(this.is_sort_column['first_name']);
                 this.role_list = this.users.map(
                   (user : User)=>user.groups[0].name)
+                  console.log(this.users);
+                  
               }
             )
           }
@@ -78,6 +92,7 @@ set search(s:string){
                 
             )}
           })
+          this.filters=this.users
       }
   sortObject(critiera:string,col:HTMLElement){
     this.is_sort_column={'email':false,'first_name':false};

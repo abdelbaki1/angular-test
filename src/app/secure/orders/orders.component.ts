@@ -101,11 +101,11 @@ export class OrdersComponent implements OnInit {
           // {saveAs(blob, 'order.csv')
         console.log(res);
         
-        const blob = new Blob([res], {type: 'text/csv'});
+        const blob = new Blob([res], {type: 'application/ms-excel'});
         const downloadUrl = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = downloadUrl;
-        link.download = 'orders.csv';
+        link.download = 'orders.xlsx';
         link.click();
         console.log("download");
         
