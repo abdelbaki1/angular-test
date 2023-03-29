@@ -58,7 +58,7 @@ export class SecureComponent implements OnInit,OnChanges {
         console.log(user);
         Auth.user_type=user.type_name
         Auth.user = user;
-        Auth.userEmitter.emit(user);
+        // Auth.userEmitter.emit(user);
         
         this.user = user;
         
